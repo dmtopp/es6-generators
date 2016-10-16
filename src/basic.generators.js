@@ -7,7 +7,7 @@ const basicGenerators = () => {
 
   let g = generator()
 
-  console.log('\n==========BASIC GENERATORS==========\n')
+  console.log('\n----------BASIC GENERATORS----------\n')
 
   // has an iterator method
   console.log(typeof g[Symbol.iterator])
@@ -26,7 +26,7 @@ const basicGenerators = () => {
     console.log(value)
   }
 
-  console.log('\n==============================')
+  console.log('\n------------------------------')
 }
 
 export default basicGenerators

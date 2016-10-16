@@ -8183,11 +8183,16 @@
 
 	var _basic2 = _interopRequireDefault(_basic);
 
+	var _suspended = __webpack_require__(300);
+
+	var _suspended2 = _interopRequireDefault(_suspended);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	console.log('\n==========HERE WE GO==========\n');
 
-	(0, _basic2.default)();
+	// basicGenerators()
+	(0, _suspended2.default)();
 
 	console.log('\n==============================');
 
@@ -8234,7 +8239,7 @@
 
 	  var g = generator();
 
-	  console.log('\n==========BASIC GENERATORS==========\n');
+	  console.log('\n----------BASIC GENERATORS----------\n');
 
 	  // has an iterator method
 	  console.log(_typeof(g[Symbol.iterator]));
@@ -8274,10 +8279,187 @@
 	    }
 	  }
 
-	  console.log('\n==============================');
+	  console.log('\n------------------------------');
 	};
 
 	exports.default = basicGenerators;
+
+/***/ },
+/* 300 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var suspendedExecution = function suspendedExecution() {
+	  var _marked = [generator, inceptionGenerator, inceptionInceptionGeneratorGenerator, generatorWithIterator].map(regeneratorRuntime.mark);
+
+	  function generator() {
+	    return regeneratorRuntime.wrap(function generator$(_context) {
+	      while (1) {
+	        switch (_context.prev = _context.next) {
+	          case 0:
+	            _context.next = 2;
+	            return 'hiii, my name is';
+
+	          case 2:
+	            console.log('what?');
+	            _context.next = 5;
+	            return 'my name is';
+
+	          case 5:
+	            console.log('who?');
+	            _context.next = 8;
+	            return 'my name is';
+
+	          case 8:
+	            console.log('chikaaa chikaa');
+	            _context.next = 11;
+	            return 'slim shady';
+
+	          case 11:
+	          case 'end':
+	            return _context.stop();
+	        }
+	      }
+	    }, _marked[0], this);
+	  }
+
+	  var g = generator();
+
+	  console.log('\n----------SUSPENDED EXECUTION----------\n');
+
+	  // 'for in' gives keys on the generator object, including prototype stuff we
+	  // don't always want
+	  for (var val in g) {
+	    console.log(val);
+	  }
+	  console.log('\n');
+
+	  // 'for of' gives values, and only the values we have defined
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = g[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var _val = _step.value;
+
+	      console.log(_val);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+
+	  console.log('\n');
+
+	  // b/c this is building an array instead of individiual elements, the generator
+	  // goes ahead and does all the stuff in between each 'yield' before finally
+	  // giving us the full array at the end
+	  var myNewGen = generator();
+	  console.log([].concat(_toConsumableArray(myNewGen)));
+	  console.log('\n');
+
+	  // same with Array.from()
+	  var myOtherNewGen = generator();
+	  console.log(Array.from(myOtherNewGen));
+	  console.log('\n');
+
+	  // generators inside generators!  yield* works with anything with Symbol.iterator method,
+	  // including plain 'ol strings!
+	  function inceptionGenerator() {
+	    var h;
+	    return regeneratorRuntime.wrap(function inceptionGenerator$(_context2) {
+	      while (1) {
+	        switch (_context2.prev = _context2.next) {
+	          case 0:
+	            h = generator();
+	            return _context2.delegateYield(h, 't0', 2);
+
+	          case 2:
+	          case 'end':
+	            return _context2.stop();
+	        }
+	      }
+	    }, _marked[1], this);
+	  }
+	  var incept = inceptionGenerator;
+	  console.log([].concat(_toConsumableArray(incept())));
+	  console.log('\n');
+
+	  function inceptionInceptionGeneratorGenerator() {
+	    var q;
+	    return regeneratorRuntime.wrap(function inceptionInceptionGeneratorGenerator$(_context3) {
+	      while (1) {
+	        switch (_context3.prev = _context3.next) {
+	          case 0:
+	            // assigning these to variables gives a 'new instance' of generator
+	            // and keeps them from getting 'used up'
+	            q = inceptionGenerator();
+	            return _context3.delegateYield(q, 't0', 2);
+
+	          case 2:
+	          case 'end':
+	            return _context3.stop();
+	        }
+	      }
+	    }, _marked[2], this);
+	  }
+	  console.log([].concat(_toConsumableArray(inceptionInceptionGeneratorGenerator())));
+	  console.log('\n');
+
+	  // example with an "iterator"
+	  var myIterator = _defineProperty({}, Symbol.iterator, function () {
+	    return {
+	      items: ['buhh', 'fuhhh', 'guhh', 'luhhh'],
+	      next: function next() {
+	        return {
+	          done: this.items.length === 0,
+	          value: this.items.shift()
+	        };
+	      }
+	    };
+	  });
+
+	  function generatorWithIterator() {
+	    return regeneratorRuntime.wrap(function generatorWithIterator$(_context4) {
+	      while (1) {
+	        switch (_context4.prev = _context4.next) {
+	          case 0:
+	            return _context4.delegateYield(myIterator, 't0', 1);
+
+	          case 1:
+	          case 'end':
+	            return _context4.stop();
+	        }
+	      }
+	    }, _marked[3], this);
+	  }
+	  console.log([].concat(_toConsumableArray(generatorWithIterator())));
+	  console.log('\n');
+
+	  console.log('\n------------------------------');
+	};
+
+	exports.default = suspendedExecution;
 
 /***/ }
 /******/ ]);
