@@ -5,9 +5,9 @@ import otherGeneratorMethods from './other.generator.methods'
 
 console.log('\n==========HERE WE GO==========\n')
 
-// basicGenerators()
-// suspendedExecution()
-// iteratingByHand()
+basicGenerators()
+suspendedExecution()
+iteratingByHand()
 otherGeneratorMethods()
 
 console.log('\n==============================')

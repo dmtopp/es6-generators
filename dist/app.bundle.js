@@ -8199,9 +8199,9 @@
 
 	console.log('\n==========HERE WE GO==========\n');
 
-	// basicGenerators()
-	// suspendedExecution()
-	// iteratingByHand()
+	(0, _basic2.default)();
+	(0, _suspended2.default)();
+	(0, _iteratingBy2.default)();
 	(0, _otherGenerator2.default)();
 
 	console.log('\n==============================');
@@ -8623,8 +8623,7 @@
 	    console.log('[GENIE]: ' + answer());
 	  }
 
-	  /* Basically the cool part of this is that you can make shit async without dealing with any '
-	  */
+	  /* Basically the cool part of this is that you can make shit async without changing the interface at all*/
 
 	  // an async genie
 	  function genie(questions) {
@@ -8652,6 +8651,7 @@
 	    }
 	  }
 
+	  // same call as sync genie
 	  genie(regeneratorRuntime.mark(function _callee() {
 	    return regeneratorRuntime.wrap(function _callee$(_context3) {
 	      while (1) {
