@@ -8187,12 +8187,17 @@
 
 	var _suspended2 = _interopRequireDefault(_suspended);
 
+	var _iteratingBy = __webpack_require__(301);
+
+	var _iteratingBy2 = _interopRequireDefault(_iteratingBy);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	console.log('\n==========HERE WE GO==========\n');
 
 	// basicGenerators()
-	(0, _suspended2.default)();
+	// suspendedExecution()
+	(0, _iteratingBy2.default)();
 
 	console.log('\n==============================');
 
@@ -8430,6 +8435,7 @@
 	  var myIterator = _defineProperty({}, Symbol.iterator, function () {
 	    return {
 	      items: ['buhh', 'fuhhh', 'guhh', 'luhhh'],
+	      // no () => b/c 'this' would refer to the wrong thing
 	      next: function next() {
 	        return {
 	          done: this.items.length === 0,
@@ -8460,6 +8466,70 @@
 	};
 
 	exports.default = suspendedExecution;
+
+/***/ },
+/* 301 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var iteratingByHand = function iteratingByHand() {
+	  var _marked = [generator].map(regeneratorRuntime.mark);
+
+	  function generator() {
+	    return regeneratorRuntime.wrap(function generator$(_context) {
+	      while (1) {
+	        switch (_context.prev = _context.next) {
+	          case 0:
+	            _context.next = 2;
+	            return 'give meeee';
+
+	          case 2:
+	            console.log('one good');
+	            _context.next = 5;
+	            return 'reasoooonnnnn';
+
+	          case 5:
+	            console.log('why weeee');
+	            _context.next = 8;
+	            return 'neeed tooooo';
+
+	          case 8:
+	            console.log('bee like theeeemmmmm');
+	            // ^^ this guy still gets logged b/c the last thing returned by the iterator
+	            // is { value: undefined, done: true }.  check the output to see the order
+
+	          case 9:
+	          case 'end':
+	            return _context.stop();
+	        }
+	      }
+	    }, _marked[0], this);
+	  }
+
+	  var g = generator();
+	  while (true) {
+	    var item = g.next();
+	    if (item.done) break;
+	    console.log(item.value);
+	  }
+
+	  console.log('\n');
+
+	  // if you run out of stuff, the generator just returns { done: true }
+	  var h = generator();
+	  var i = 0;
+	  while (i < 6) {
+	    var _item = h.next();
+	    console.log(_item);
+	    i++;
+	  }
+	};
+
+	exports.default = iteratingByHand;
 
 /***/ }
 /******/ ]);
