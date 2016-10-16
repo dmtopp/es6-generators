@@ -8191,13 +8191,18 @@
 
 	var _iteratingBy2 = _interopRequireDefault(_iteratingBy);
 
+	var _otherGenerator = __webpack_require__(302);
+
+	var _otherGenerator2 = _interopRequireDefault(_otherGenerator);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	console.log('\n==========HERE WE GO==========\n');
 
 	// basicGenerators()
 	// suspendedExecution()
-	(0, _iteratingBy2.default)();
+	// iteratingByHand()
+	(0, _otherGenerator2.default)();
 
 	console.log('\n==============================');
 
@@ -8479,6 +8484,7 @@
 	var iteratingByHand = function iteratingByHand() {
 	  var _marked = [generator].map(regeneratorRuntime.mark);
 
+	  console.log('\n----------ITERATING BY HAND----------\n');
 	  function generator() {
 	    return regeneratorRuntime.wrap(function generator$(_context) {
 	      while (1) {
@@ -8527,9 +8533,155 @@
 	    console.log(_item);
 	    i++;
 	  }
+
+	  console.log('\n------------------------------');
 	};
 
 	exports.default = iteratingByHand;
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var otherGeneratorMethods = function otherGeneratorMethods() {
+	  var _marked = [chat, invertedChat].map(regeneratorRuntime.mark);
+
+	  console.log('\n----------WEIRD GENERATOR STUFF AKA THE MAGIC 8 BALL----------\n');
+	  var answers = ['It is certain', 'It is decidedly so', 'Without a doubt', 'Yes definitely', 'You may rely on it', 'As I see it, yes', 'Most likely', 'Outlook good', 'Yes', 'Signs point to yes', 'Reply hazy try again', 'Ask again later', 'Better not tell you now', 'Cannot predict now', 'Concentrate and ask again', 'Don\'t count on it', 'My reply is no', 'My sources say no', 'Outlook not so good', 'Very doubtful'];
+	  function answer() {
+	    return answers[Math.floor(Math.random() * answers.length)];
+	  }
+
+	  function chat() {
+	    var question;
+	    return regeneratorRuntime.wrap(function chat$(_context) {
+	      while (1) {
+	        switch (_context.prev = _context.next) {
+	          case 0:
+	            if (false) {
+	              _context.next = 7;
+	              break;
+	            }
+
+	            _context.next = 3;
+	            return '[GENIE]: ' + answer();
+
+	          case 3:
+	            question = _context.sent;
+
+	            console.log(question);
+	            _context.next = 0;
+	            break;
+
+	          case 7:
+	          case 'end':
+	            return _context.stop();
+	        }
+	      }
+	    }, _marked[0], this);
+	  }
+
+	  var g = chat();
+
+	  console.log(g.next());
+	  console.log(g.next('[ME]: Does this ever end up returning { done: true? }').value);
+	  console.log(g.next('[LITERALLY EVERYONE]: this is super cool but how is this going to help me build websites?').value);
+
+	  console.log('\n that\'s kind of a gross way to do it though cuz we gotta crank out a .next before we can actually do stuff\n');
+
+	  function invertedChat() {
+	    return regeneratorRuntime.wrap(function invertedChat$(_context2) {
+	      while (1) {
+	        switch (_context2.prev = _context2.next) {
+	          case 0:
+	            _context2.next = 2;
+	            return '[ME]: Genie, would you say that this is a better way to go about things?';
+
+	          case 2:
+	            _context2.next = 4;
+	            return '[ME]: Genie, is it going to rain?';
+
+	          case 4:
+	          case 'end':
+	            return _context2.stop();
+	        }
+	      }
+	    }, _marked[1], this);
+	  }
+
+	  var newG = invertedChat();
+
+	  while (true) {
+	    var question = newG.next();
+	    if (question.done) break;
+	    console.log(question.value);
+	    console.log('[GENIE]: ' + answer());
+	  }
+
+	  /* Basically the cool part of this is that you can make shit async without dealing with any '
+	  */
+
+	  // an async genie
+	  function genie(questions) {
+	    var g = questions();
+	    pull();
+
+	    function pull() {
+	      var question = g.next();
+	      if (question.done) {
+	        return;
+	      }
+	      ask(question.value, pull);
+	    }
+
+	    function ask(q, next) {
+	      xhr('https://computer.genie/?q=' + encodeURIComponent(q), got);
+	      function got(err, res, body) {
+	        if (err) {
+	          // todo
+	        }
+	        console.log(q);
+	        console.log('[Genie] ' + body.answer);
+	        next();
+	      }
+	    }
+	  }
+
+	  genie(regeneratorRuntime.mark(function _callee() {
+	    return regeneratorRuntime.wrap(function _callee$(_context3) {
+	      while (1) {
+	        switch (_context3.prev = _context3.next) {
+	          case 0:
+	            _context3.next = 2;
+	            return '[Me] Will ES6 die a painful death?';
+
+	          case 2:
+	            _context3.next = 4;
+	            return '[Me] How youuu doing?';
+
+	          case 4:
+	          case 'end':
+	            return _context3.stop();
+	        }
+	      }
+	    }, _callee, this);
+	  }));
+
+	  function xhr(url, done) {
+	    setTimeout(function () {
+	      done(null, null, { answer: 'No' });
+	    }, 2000);
+	  }
+
+	  console.log('\n------------------------------');
+	};
+
+	exports.default = otherGeneratorMethods;
 
 /***/ }
 /******/ ]);

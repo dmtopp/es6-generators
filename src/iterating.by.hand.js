@@ -1,4 +1,5 @@
 const iteratingByHand = () => {
+  console.log('\n----------ITERATING BY HAND----------\n')
   function* generator() {
     yield 'give meeee'
     console.log('one good')
@@ -27,6 +28,8 @@ const iteratingByHand = () => {
     console.log(item)
     i++
   }
+
+  console.log('\n------------------------------')
 }
 
 export default iteratingByHand
