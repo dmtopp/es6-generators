@@ -8175,44 +8175,109 @@
 
 /***/ },
 /* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _basic = __webpack_require__(299);
+
+	var _basic2 = _interopRequireDefault(_basic);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	console.log('\n==========HERE WE GO==========\n');
+
+	(0, _basic2.default)();
+
+	console.log('\n==============================');
+
+/***/ },
+/* 299 */
 /***/ function(module, exports) {
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-	var _marked = [generator].map(regeneratorRuntime.mark);
+	var basicGenerators = function basicGenerators() {
+	  var _marked = [generator].map(regeneratorRuntime.mark);
 
-	function generator() {
-	  return regeneratorRuntime.wrap(function generator$(_context) {
-	    while (1) {
-	      switch (_context.prev = _context.next) {
-	        case 0:
-	          _context.next = 2;
-	          return 'buhh';
+	  function generator() {
+	    return regeneratorRuntime.wrap(function generator$(_context) {
+	      while (1) {
+	        switch (_context.prev = _context.next) {
+	          case 0:
+	            _context.next = 2;
+	            return 'buhh';
 
-	        case 2:
-	          _context.next = 4;
-	          return 'fuhh';
+	          case 2:
+	            _context.next = 4;
+	            return 'fuhh';
 
-	        case 4:
-	          _context.next = 6;
-	          return 'guhh';
+	          case 4:
+	            _context.next = 6;
+	            return 'guhh';
 
-	        case 6:
-	        case 'end':
-	          return _context.stop();
+	          case 6:
+	          case 'end':
+	            return _context.stop();
+	        }
+	      }
+	    }, _marked[0], this);
+	  }
+
+	  var g = generator();
+
+	  console.log('\n==========BASIC GENERATORS==========\n');
+
+	  // has an iterator method
+	  console.log(_typeof(g[Symbol.iterator]));
+
+	  // can convert to array w/spread
+	  console.log([].concat(_toConsumableArray(g)));
+
+	  // GOTCHA: once you use up your generator, it doesn't restart.
+	  console.log([].concat(_toConsumableArray(g))); // => []
+
+	  var h = generator();
+	  console.log(Array.from(h));
+
+	  var i = generator();
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = i[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var value = _step.value;
+
+	      console.log(value);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
 	      }
 	    }
-	  }, _marked[0], this);
-	}
+	  }
 
-	var g = generator();
+	  console.log('\n==============================');
+	};
 
-	console.log('\n==========HERE WE GO==========\n');
-	console.log([].concat(_toConsumableArray(g)));
-	console.log(Array.from(g));
-	console.log('\n==============================');
+	exports.default = basicGenerators;
 
 /***/ }
 /******/ ]);

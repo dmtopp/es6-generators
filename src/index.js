@@ -1,12 +1,7 @@
-function* generator() {
-  yield 'buhh'
-  yield 'fuhh'
-  yield 'guhh'
-}
-
-let g = generator()
+import basicGenerators from './basic.generators'
 
 console.log('\n==========HERE WE GO==========\n')
-console.log([...g])
-console.log(Array.from(g))
+
+basicGenerators();
+
 console.log('\n==============================')
